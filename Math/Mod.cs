@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Math
+﻿namespace AlexMath
 {
-    // Euclidian modulo: r = a - |n| floor(a/|n|)
-    public class Mod
+    // Euclidian modulo: r = a - |b| floor(a/|b|)
+    internal class Mod
     {
-        int mod()
+        public static double mod(double a, double b)
         {
-            Floor.floor(1);
-            return 1;
+            b = Absolute.abs(b);
+
+            double r = a - b * Floor.floor(a / b);
+            Console.WriteLine(a + " mod " + b + " = " + r);
+            return r;
         }
     }
 }

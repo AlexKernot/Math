@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Math
+﻿namespace AlexMath
 {
-    public class Floor
+    // TODO: Find a better way to do a floor function
+    internal class Floor
     {
-        public static double floor(double n)
+        public static int floor(double n)
         {
-            return 1;
+            return (int)Decimal.Truncate((decimal)n);
         }
     }
 }
