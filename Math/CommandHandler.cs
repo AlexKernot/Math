@@ -44,7 +44,7 @@ namespace AlexMath
                 return double.NaN;
             }
 
-            switch (output[0].ToLower())
+            switch (output[0].ToLower(new System.Globalization.CultureInfo("en-US", false)))
             {
             case ("sin"):
                 return Sin.sin(argument);
