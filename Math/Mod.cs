@@ -8,7 +8,6 @@
             b = Absolute.abs(b);
 
             double r = a - b * Floor.floor(a / b);
-            Console.WriteLine(a + " mod " + b + " = " + r);
             return r;
         }
     }

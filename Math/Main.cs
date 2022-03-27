@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Diagnostics;
 
 namespace AlexMath
 {
@@ -6,27 +6,22 @@ namespace AlexMath
     {
         static void Main(string[] args)
         {
-            const double pi = 3.141592653589793;
+            Stopwatch stopWatch = new Stopwatch();
 
             Console.WriteLine("Calculator Initialised. Currently testing Sin(x). Please enter an x value.");          
             while (true)
           {
-                    string response = Console.ReadLine();
+                // TODO: Create response time ("Request was processed in ___ ms")
+                string response = Console.ReadLine();
 
-                    double n = 0;
+                stopWatch.Start();
+                double answer = CommandHandler.handler(response);
+                stopWatch.Stop();
 
-                    bool isNum = double.TryParse(response, out n);
+                double time = stopWatch.ElapsedTicks / 10000;
 
-                    if (!isNum)
-                    {
-                        Console.WriteLine("Invalid number detected, please try again.");
-                        continue;
-                    }
-
-                    double r = Sin.sin(n);
-
-                    Console.WriteLine(r);
-                
+                Console.WriteLine("= " + answer + " (Processed in " + time + " ms)");
+                stopWatch.Reset();
            }
         }
     }
