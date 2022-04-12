@@ -14,7 +14,7 @@ namespace AlexMath
         // Searches for word + space OR ( + number OR pi
         static Regex rx = new Regex(@"\w+(\s|\()([-]?\d+\.?\d*|pi)", RegexOptions.IgnoreCase);
 
-        static Regex mod = new Regex(@"\d\s?%\s?\d", RegexOptions.IgnorePatternWhitespace);
+        static Regex mod = new Regex(@"\d\s?(%|mod)\s?\d", RegexOptions.IgnorePatternWhitespace);
 
         // Searches for space or ( just for splitting arguments from functions.
         static Regex split = new Regex(@"(\s|\()", RegexOptions.IgnoreCase);
