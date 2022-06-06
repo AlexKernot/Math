@@ -6,11 +6,10 @@ namespace AlexMath
     {
         static void Main(string[] args)
         {
-            Stopwatch stopWatch = new();
-
-            Console.WriteLine("Calculator Initialised. Currently testing Sin(x). Please enter an x value.");          
+            Stopwatch stopWatch = new();       
             while (true)
           {
+                Console.WriteLine("Please enter an equation to solve");
                 string response = Console.ReadLine() + "";
 
                 stopWatch.Start();

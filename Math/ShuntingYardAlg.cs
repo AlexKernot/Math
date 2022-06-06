@@ -102,7 +102,7 @@ namespace AlexMath
                     return 5;
                 case ("/"):
                     return 5;
-                case ("-"):
+                case ("minus"):
                     return 4;
                 case ("+"):
                     return 4;
