@@ -15,8 +15,6 @@ namespace AlexMath
 
             for (int i = 0; i < split.Length; i++)
             {
-                Console.WriteLine(split[i]);
-
                 // If the input is just a whitespace, continue
                 if (String.IsNullOrWhiteSpace(split[i]))
                 {
@@ -37,9 +35,10 @@ namespace AlexMath
                     continue;
                 }
 
+                //If the input is a function, throw it onto the stack
                 if (function.IsMatch(split[i]))
                 {
-                    queue.Enqueue((split[i]));
+                    stack.Push((split[i]));
                     continue;
                 }
 

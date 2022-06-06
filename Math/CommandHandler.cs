@@ -11,21 +11,27 @@ namespace AlexMath
 
         public static string Handler(string equation)
         {
-            if (String.IsNullOrWhiteSpace(equation))
+            try
             {
-                return "No equation specified. Please try again.";
-            }
-            string[] postFix = ShuntingYardAlg.Algorithm(equation);
+                if (String.IsNullOrWhiteSpace(equation))
+                {
+                    return "No equation specified. Please try again.";
+                }
+                string[] postFix = ShuntingYardAlg.Algorithm(equation);
 
-            string postFixPrint = "Postfix = ";
+                string postFixPrint = "Postfix = ";
 
-            for (int i = 0; i < postFix.Length; i++)
+                for (int i = 0; i < postFix.Length; i++)
+                {
+                    postFixPrint += postFix[i];
+                }
+                Console.WriteLine(postFixPrint);
+
+                return Evaluator.StackEval(postFix);
+            } catch (Exception ex)
             {
-                postFixPrint += postFix[i];
+                return ex.ToString();
             }
-            Console.WriteLine(postFixPrint);
-
-            return Evaluator.StackEval(postFix);
         }
     }
 }
