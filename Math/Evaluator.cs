@@ -15,7 +15,7 @@ namespace AlexMath
 
             for (int i = 0; i < postfix.Length; i++)
             {
-                if (postfix[i] == "")
+                if (String.IsNullOrWhiteSpace(postfix[i]))
                 {
                     continue;
                 }

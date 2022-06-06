@@ -16,8 +16,9 @@ namespace AlexMath
             for (int i = 0; i < split.Length; i++)
             {
                 Console.WriteLine(split[i]);
+
                 // If the input is just a whitespace, continue
-                if (split[i] == " " || split[i] == "" || split[i] == null)
+                if (String.IsNullOrWhiteSpace(split[i]))
                 {
                     continue;
                 }

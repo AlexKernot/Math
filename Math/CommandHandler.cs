@@ -11,9 +11,10 @@ namespace AlexMath
 
         public static string Handler(string equation)
         {
-
-
-
+            if (String.IsNullOrWhiteSpace(equation))
+            {
+                return "No equation specified. Please try again.";
+            }
             string[] postFix = ShuntingYardAlg.Algorithm(equation);
 
             string postFixPrint = "Postfix = ";
