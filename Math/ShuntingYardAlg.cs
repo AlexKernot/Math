@@ -5,15 +5,14 @@ namespace AlexMath
     internal class ShuntingYardAlg
     {
         // Standard Shunting Yard Algorithm for processing a string for calculations. Example: https://www.youtube.com/watch?v=Wz85Hiwi5MY
-        public static string Algorithm(string input)
+        public static string[] Algorithm(string input)
         {
-            Regex regex = new Regex(@"(\d*\.?\d+)|(|)");
-            stack stack = new stack();
-            queue queue = new queue();
+            Regex regex = new(@"(-?\d*\.?\d+)|(\()|(\))|(\{)|(\})|(\[)|(\])|(sin)|(cos)|(tan)|(abs)|(floor)|(\+)|(/)|(\*)|(x)|(-)|(!)|(\^)");
+            Regex function = new(@"(sin)|(cos)|(tan)|(abs)|(floor)");
+            stack stack = new();
+            queue queue = new();
             string[] split = regex.Split(input);
 
-
-            // TODO: change to a switch function
             for (int i = 0; i < split.Length; i++)
             {
                 Console.WriteLine(split[i]);
@@ -22,26 +21,34 @@ namespace AlexMath
                 {
                     continue;
                 }
+
                 // Checks if the input is a number, if it is, push it stright to the queue
-                if (int.TryParse(split[i], out _))
+                if (double.TryParse(split[i], out _))
                 {
                     queue.Enqueue(split[i]);
                     continue;
                 }
 
                 // If the input is an opening bracket of some kind, send it stright to the stack
-                if (split[i].Contains("(") || split[i].Contains("{") || split[i].Contains("["))
+                if (split[i].Contains('(') || split[i].Contains('{') || split[i].Contains('['))
                 {
                     stack.Push(split[i]);
                     continue;
                 }
-                // TODO: Closing brackets
 
+                if (function.IsMatch(split[i]))
+                {
+                    queue.Enqueue((split[i]));
+                    continue;
+                }
+
+                // If there is a closing bracket, push all operators before the next opening bracket to the queue and remove both brackets.
                 if (split[i] == ")" || split[i] == "}" || split[i] == "]")
                 {
                     for (int j = 0; !(stack.Get(stack.length).Contains("(") || stack.Get(stack.length).Contains("{") || stack.Get(stack.length).Contains("[")); j++)
                     {
-                        queue.Enqueue(stack.Pop());
+                        string temp = stack.Pop();
+                        queue.Enqueue(temp);
                     }
                     stack.Pop();
                     continue;
@@ -55,21 +62,32 @@ namespace AlexMath
                 }
 
                 // If the operator has a lower precendece then the operator in the stack, pop previous operation and enqueue it before pushing current operator
-                if (Precedence(split[i]) <= Precedence(stack.Get(stack.length)))
+                if (Precedence(split[i]) <= Precedence(stack.Get(stack.length)) && Left(split[i]))
                 {
-                    queue.Enqueue(stack.Pop());
+                    for (int j =0; Precedence(split[i]) <= Precedence(stack.Get(stack.length)); j++) {
+                        queue.Enqueue(stack.Pop());
+                    }
                     stack.Push(split[i]);
                     continue;
                 }
 
-                // Else, push to operator stack
-                stack.Push(split[i]);
+                // My lazy way of saying: if this is a recognised operator, push it to the stack
+                if (Precedence(split[i]) != -1)
+                {
+                    stack.Push(split[i]);
+                    continue;
+                }
+
+                // Else, throw error
+                Console.WriteLine("Unknown input: '" + split[i] + "'");
+                string[] error = { "NaN" };
+                return error;
             }
-            for (int i = 0; i < stack.length; i++)
+            for (int i = stack.length; i >= 0; i--)
             {
                 queue.Enqueue(stack.Pop());
             }
-            return queue.Flush();
+            return queue.Flush(stack.length);
         }
 
         public static int Precedence(string input)
@@ -92,6 +110,26 @@ namespace AlexMath
                     return -1;
             }
         }
+        public static bool Left(string input)
+        {
+            switch (input)
+            {
+                case ("^"):
+                    return false;
+                case ("*"):
+                    return true;
+                case ("x"):
+                    return true;
+                case ("/"):
+                    return true;
+                case ("-"):
+                    return true;
+                case ("+"):
+                    return true;
+                default:
+                    return false;
+            }
+        }
     }
 
     public class stack
@@ -106,7 +144,6 @@ namespace AlexMath
             {
                 data[length] = input;
                 length++;
-                Console.WriteLine("Push " + input);
                 return;
             } catch (Exception e)
             {
@@ -163,7 +200,6 @@ namespace AlexMath
             {
                 data[length] = input;
                 length++;
-                Console.WriteLine("Enqueue " + input + " " + length);
                 return;
             } catch (Exception e)
             {
@@ -172,15 +208,15 @@ namespace AlexMath
             }
         }
 
-        public string Flush()
+        public string[] Flush(int stackSize)
         {
-            string final = "";
-
-            for(int i = beginning; i <= length; i++)
+            string[] final = new string[stackSize + length];
+            int j = 0;
+            for(int i = beginning; i < length; i++)
             {
-                final += data[i];
+                final[j] = data[i];
+                j++;
             }
-            Console.WriteLine(final);
             return final;
         }
     }
