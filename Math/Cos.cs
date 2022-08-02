@@ -8,8 +8,8 @@ namespace AlexMath
 {
     internal class Cos
     {
-        const double pi = 3.141592653589793;
-        public static double cos(double input)
+        const decimal pi = 3.141592653589793M;
+        public static decimal cos(decimal input)
         {
             input += pi / 2;
 

@@ -10,15 +10,14 @@ namespace AlexMath
     {
         public static void test(int powers)
         {
-            double one = 0;
-            double two = 0;
+            decimal one = 0;
+            decimal two = 0;
 
             for (int i = 0; i < powers; i++)
             {
-                one = Sin.sin(Math.PI, i);
-                two = Math.Sin(Math.PI);
-
-                Console.WriteLine(one + " " + two + " " + Absolute.abs(two - one));
+                one = Sin.sin(2, i);
+                two = (decimal)Math.Sin(2);
+                Console.WriteLine(i + " " + one + " " + two + " " + Absolute.abs(two - one));
             }
         }
 

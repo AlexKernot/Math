@@ -2,7 +2,7 @@
 {
     internal class Absolute
     {
-        public static double abs(double n)
+        public static decimal abs(decimal n)
         {
             if (n < 0)
                 n *= -1;

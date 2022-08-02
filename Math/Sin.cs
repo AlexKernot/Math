@@ -5,11 +5,11 @@
 
     public class Sin
     {
-        const double pi = 3.141592653589793;
+        const decimal pi = 3.141592653589793M;
 
-        public static decimal sin(double n, int pow = 14)
+        public static decimal sin(decimal n, int pow = 10)
         {
-            if (n > Math.PI || n < -Math.PI)
+            if (n > pi || n < -pi)
                 n = Mod.mod(n + pi, 2 * pi) - pi;
 
             decimal sinx = 0;
@@ -19,7 +19,6 @@
             {
                 num = (Pow.pow(-1, i) * Pow.pow(n, 2 * i + 1)) / (Factorial.factorial(2 * i + 1));
                 sinx += num;
-                Console.WriteLine((Pow.pow(-1, i) * Pow.pow(n, 2 * i + 1)) + " " + (Factorial.factorial(2 * i + 1)) + " " + i + " " + num + " " + sinx);
             }
 
             return sinx;

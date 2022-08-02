@@ -2,9 +2,9 @@
 {
     internal class Floor
     {
-        public static int floor(double n)
+        public static int floor(decimal n)
         {
-            return (int)Decimal.Truncate((decimal)n);
+            return (int)Decimal.Truncate(n);
         }
     }
 }

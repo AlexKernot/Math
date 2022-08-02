@@ -6,10 +6,7 @@ namespace AlexMath
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(Sin.sin(2, 20));
-            Console.WriteLine(Math.Sin(2));
-            Console.WriteLine(Sin.sin(Math.PI));
-            Console.WriteLine(Math.Sin(Math.PI));
+            Test.test(11);
           //  Test.test(32);
           //  Stopwatch stopWatch = new();       
           //  while (true)

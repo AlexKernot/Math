@@ -8,10 +8,10 @@ namespace AlexMath
 {
     internal class Tan
     {
-        public static double tan(double input)
+        public static decimal tan(decimal input)
         {
-            double sin = Math.Sin(input);
-            double cos = Math.Cos(input);
+            decimal sin = Sin.sin(input);
+            decimal cos = Cos.cos(input);
 
             return sin / cos;
         }

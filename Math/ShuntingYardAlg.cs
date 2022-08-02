@@ -26,7 +26,7 @@ namespace AlexMath
                 }
 
                 // Checks if the input is a number, if it is, push it stright to the queue
-                if (double.TryParse(split[i], out _))
+                if (decimal.TryParse(split[i], out _))
                 {
                     queue.Enqueue(split[i]);
                     continue;

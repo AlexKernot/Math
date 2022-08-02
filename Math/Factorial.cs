@@ -8,14 +8,15 @@ namespace AlexMath
 {
     internal class Factorial
     {
-        public static int factorial(int n)
+        public static long factorial(int n)
         {
+            long fact = n;
             for (int i = n - 1; i > 0; i--)
             {
-                n *= i;
+                fact *= i;
             }
 
-            return n;
+            return fact;
         }
     }
 }

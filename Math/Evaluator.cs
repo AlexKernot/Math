@@ -23,7 +23,7 @@ namespace AlexMath
                 {
                     return "NaN";
                 }
-                if(double.TryParse(postfix[i], out _))
+                if(decimal.TryParse(postfix[i], out _))
                 {
                     eval.Push(postfix[i]);
                     continue;
@@ -52,13 +52,13 @@ namespace AlexMath
         // Function for calculating with style number | operator | number
         static string Simple(string[] compute)
         {
-            double a = new();
-            double b = new();
+            decimal a = new();
+            decimal b = new();
 
             int temp = 0;
 
             // Checks if the first and third inputs are numbers
-            if (double.TryParse(compute[0], out a) && double.TryParse(compute[2], out b) && a != double.NaN && b != double.NaN) {
+            if (decimal.TryParse(compute[0], out a) && decimal.TryParse(compute[2], out b)) {
                 switch (compute[1])
                 {
                     case "+":
@@ -84,7 +84,7 @@ namespace AlexMath
                             return AlexMath.Pow.pow(a, temp).ToString();
                         }
                         Console.WriteLine("For the time being, a power must be raised to a positive integer.");
-                        return double.NaN.ToString();
+                        return "NaN";
 
                     default:
                         Console.WriteLine("Unkown operator detected at: " + compute[0] + compute[1] + compute[2] + " Please check your input and try again. 1");
@@ -98,9 +98,9 @@ namespace AlexMath
         // function for calculating operator | number or number | operator
         static string Funct(string[] compute)
         {
-            double num = new();
+            decimal num = new();
             int temp = 0;
-            if (double.TryParse(compute[1], out num))
+            if (decimal.TryParse(compute[1], out num))
             {
                 switch (compute[0])
                 {
