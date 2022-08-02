@@ -64,8 +64,7 @@ namespace AlexMath
                     case "+":
                         return (a + b).ToString();
 
-                        //FIXME: minus
-                    case "minus":
+                    case "-":
                         return (a - b).ToString();
 
                     case "*":

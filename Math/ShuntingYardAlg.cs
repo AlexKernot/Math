@@ -7,7 +7,11 @@ namespace AlexMath
         // Standard Shunting Yard Algorithm for processing a string for calculations. Example: https://www.youtube.com/watch?v=Wz85Hiwi5MY
         public static string[] Algorithm(string input)
         {
-            Regex regex = new(@"(-?\d*\.?\d+)|(\()|(\))|(\{)|(\})|(\[)|(\])|(sin)|(cos)|(tan)|(abs)|(floor)|(\+)|(/)|(\*)|(x)|(-)|(!)|(\^)");
+            Regex regex = new(@"(?(\D-\d*\.?\d+)(\d*\.?\d+)|(-?\d*\.?\d+))|(\()|(\))|(\{)|(\})|(\[)|(\])|(sin)|(cos)|(tan)|(abs)|(floor)|(\+)|(/)|(\*)|(x)|(-)|(!)|(\^)");
+            Regex testing = new(@"(?(\D-\d*\.?\d+)(\d*\.?\d+)|(-?\d*\.?\d+))");
+
+            Console.WriteLine(testing.Matches(input));
+
             Regex function = new(@"(sin)|(cos)|(tan)|(abs)|(floor)");
             stack stack = new();
             queue queue = new();
@@ -102,7 +106,7 @@ namespace AlexMath
                     return 5;
                 case ("/"):
                     return 5;
-                case ("minus"):
+                case ("-"):
                     return 4;
                 case ("+"):
                     return 4;
@@ -126,6 +130,8 @@ namespace AlexMath
                     return true;
                 case ("+"):
                     return true;
+                case ("!"):
+                    return false;
                 default:
                     return false;
             }
