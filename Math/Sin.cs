@@ -7,7 +7,7 @@
     {
         const decimal pi = 3.141592653589793M;
 
-        public static decimal sin(decimal n, int pow = 10)
+        public static decimal sin(decimal n, int pow = 11)
         {
             if (n > pi || n < -pi)
                 n = Mod.mod(n + pi, 2 * pi) - pi;

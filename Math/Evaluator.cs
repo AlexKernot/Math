@@ -15,7 +15,7 @@ namespace AlexMath
 
             for (int i = 0; i < postfix.Length; i++)
             {
-                if (String.IsNullOrWhiteSpace(postfix[i]))
+                if (String.IsNullOrWhiteSpace(postfix[i]) || postfix[i] == ",")
                 {
                     continue;
                 }
@@ -57,6 +57,9 @@ namespace AlexMath
 
             int temp = 0;
 
+            int inta = new();
+            int intb = new();
+
             // Checks if the first and third inputs are numbers
             if (decimal.TryParse(compute[0], out a) && decimal.TryParse(compute[2], out b)) {
                 switch (compute[1])
@@ -78,6 +81,22 @@ namespace AlexMath
 
                     case "mod":
                         return (AlexMath.Mod.mod(a, b)).ToString();
+
+                    case "GCD":
+                        if (int.TryParse(a.ToString(), out inta) && int.TryParse(b.ToString(), out intb))
+                        {
+                            return (GCD.gcd(inta, intb).ToString());
+                        }
+                        Console.WriteLine("GCD operation can only be between two integers.");
+                        return "NaN";
+
+                    case "LCM":
+                        if (int.TryParse(a.ToString(), out inta) && int.TryParse(b.ToString(), out intb))
+                        {
+                            return (LCM.lcm(inta, intb).ToString());
+                        }
+                        Console.WriteLine("LCM operation can only be between two integers.");
+                        return "NaN";
 
                     case "^":
                         if (b > 0 && int.TryParse(compute[2], out temp)) {
@@ -113,7 +132,7 @@ namespace AlexMath
                     case "cos":
                         return (AlexMath.Cos.cos(num)).ToString();
                     case "tan":
-                        return (AlexMath.Tan.tan(num)).ToString();
+
                     default:
                         Console.WriteLine("Unrecognised function at " + compute[0] + compute[1]);
                         return "NaN";

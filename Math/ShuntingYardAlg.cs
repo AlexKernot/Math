@@ -4,15 +4,13 @@ namespace AlexMath
 {
     internal class ShuntingYardAlg
     {
+        const decimal pi = 3.141592653589793M;
         // Standard Shunting Yard Algorithm for processing a string for calculations. Example: https://www.youtube.com/watch?v=Wz85Hiwi5MY
         public static string[] Algorithm(string input)
         {
-            Regex regex = new(@"(?(\D-\d*\.?\d+)(\d*\.?\d+)|(-?\d*\.?\d+))|(\()|(\))|(\{)|(\})|(\[)|(\])|(sin)|(cos)|(tan)|(abs)|(floor)|(\+)|(/)|(\*)|(x)|(-)|(!)|(\^)");
-            Regex testing = new(@"(?(\D-\d*\.?\d+)(\d*\.?\d+)|(-?\d*\.?\d+))");
+            Regex regex = new(@"(?(\D-\d*\.?\d+)(\d*\.?\d+)|(-?\d*\.?\d+))|(\()|(\))|(\{)|(\})|(\[)|(\])|(sin)|(cos)|(tan)|(abs)|(floor)|(\+)|(/)|(\*)|(x)|(-)|(!)|(\^)|(pi)|(GCD)|(,)|(LCM)");
 
-            Console.WriteLine(testing.Matches(input));
-
-            Regex function = new(@"(sin)|(cos)|(tan)|(abs)|(floor)");
+            Regex function = new(@"(sin)|(cos)|(tan)|(abs)|(floor)|(GCD)|(LCM)");
             stack stack = new();
             queue queue = new();
             string[] split = regex.Split(input);
@@ -20,7 +18,7 @@ namespace AlexMath
             for (int i = 0; i < split.Length; i++)
             {
                 // If the input is just a whitespace, continue
-                if (String.IsNullOrWhiteSpace(split[i]))
+                if (String.IsNullOrWhiteSpace(split[i])|| split[i] == ",")
                 {
                     continue;
                 }
@@ -29,6 +27,12 @@ namespace AlexMath
                 if (decimal.TryParse(split[i], out _))
                 {
                     queue.Enqueue(split[i]);
+                    continue;
+                }
+
+                if (split[i] == "pi")
+                {
+                    queue.Enqueue(pi.ToString());
                     continue;
                 }
 
