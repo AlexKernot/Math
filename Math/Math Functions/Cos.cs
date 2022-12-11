@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AlexMath
+﻿namespace AlexMath;
+internal partial class Functions
 {
-    internal partial class Functions
+    public static decimal Cos(decimal input)
     {
-        public static decimal Cos(decimal input)
-        {
-            input += pi / 2;
+        input += pi / 2;
 
-            return Functions.Sin(input);
+        return Functions.Sin(input);
 
-        }
     }
 }
