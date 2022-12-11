@@ -8,10 +8,16 @@ namespace AlexMath
 {
     internal class Factorial
     {
-        public static long factorial(int n)
+        public static ulong factorial(int n)
         {
-            long fact = n;
-            for (int i = n - 1; i > 0; i--)
+            uint start = (uint)n;
+
+            ulong fact = start;
+            if (start == 0)
+            {
+                return 1;
+            }
+            for (uint i = start - 1; i > 0; i--)
             {
                 fact *= i;
             }

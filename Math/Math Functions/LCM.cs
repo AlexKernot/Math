@@ -8,7 +8,7 @@ namespace AlexMath
 {
     public class LCM
     {
-        public static int lcm(int a, int b)
+        public static decimal lcm(int a, int b)
         {
             if (a == 0)
             {

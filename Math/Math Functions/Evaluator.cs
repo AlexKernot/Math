@@ -7,9 +7,9 @@ namespace AlexMath
         // Post fix stack evaluator: https://www.youtube.com/watch?v=bebqXO8H4eA
         public static string StackEval(string[] postfix)
         {
-            Regex function = new(@"(sin)|(cos)|(tan)|(abs)|(floor)");
+            Regex function = new(@"(sin)|(cos)|(tan)|(abs)|(floor)|(!)");
             string[] compute = new string[3];
-            stack eval = new(); 
+            Stack eval = new(); 
 
             // Pop 2nd number, then first number
 
@@ -52,13 +52,9 @@ namespace AlexMath
         // Function for calculating with style number | operator | number
         static string Simple(string[] compute)
         {
-            decimal a = new();
-            decimal b = new();
+            decimal a, b;
 
-            int temp = 0;
-
-            int inta = new();
-            int intb = new();
+            int temp, inta, intb;
 
             // Checks if the first and third inputs are numbers
             if (decimal.TryParse(compute[0], out a) && decimal.TryParse(compute[2], out b)) {
@@ -102,11 +98,11 @@ namespace AlexMath
                         if (b > 0 && int.TryParse(compute[2], out temp)) {
                             return AlexMath.Pow.pow(a, temp).ToString();
                         }
-                        Console.WriteLine("For the time being, a power must be raised to a positive integer.");
+                        Console.WriteLine("A power must be raised to a positive integer.");
                         return "NaN";
 
                     default:
-                        Console.WriteLine("Unkown operator detected at: " + compute[0] + compute[1] + compute[2] + " Please check your input and try again. 1");
+                        Console.WriteLine("Unkown operator detected at: " + compute[0] + compute[1] + compute[2] + " Please check your input and try again.");
                         return "NaN";
                 }
             }
@@ -117,8 +113,7 @@ namespace AlexMath
         // function for calculating operator | number or number | operator
         static string Funct(string[] compute)
         {
-            decimal num = new();
-            int temp = 0;
+            decimal num;
             if (decimal.TryParse(compute[1], out num))
             {
                 switch (compute[0])
@@ -133,19 +128,18 @@ namespace AlexMath
                         return (AlexMath.Cos.cos(num)).ToString();
                     case "tan":
 
+                    case "!":
+                        if (int.TryParse(compute[1], out int temp))
+                        {
+                            return (AlexMath.Factorial.factorial(temp)).ToString();
+                        }
+                        Console.WriteLine("A factorial must a positive integer");
+                        return "NaN";
+
                     default:
                         Console.WriteLine("Unrecognised function at " + compute[0] + compute[1]);
                         return "NaN";
                 }
-            }
-            if (compute[1] == "!")
-            {
-                if (int.TryParse(compute[0], out temp) && temp > 0)
-                {
-                    return (AlexMath.Factorial.factorial(temp)).ToString();
-                }
-                Console.WriteLine("A factorial must a positive integer");
-                return "NaN";
             }
             Console.WriteLine("Unkown function detected at: " + compute[0] + compute[1] + " Please check your input and try again.");
             return "NaN";

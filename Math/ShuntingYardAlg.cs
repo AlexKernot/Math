@@ -11,8 +11,8 @@ namespace AlexMath
             Regex regex = new(@"(?(\D-\d*\.?\d+)(\d*\.?\d+)|(-?\d*\.?\d+))|(\()|(\))|(\{)|(\})|(\[)|(\])|(sin)|(cos)|(tan)|(abs)|(floor)|(\+)|(/)|(\*)|(x)|(-)|(!)|(\^)|(pi)|(GCD)|(,)|(LCM)");
 
             Regex function = new(@"(sin)|(cos)|(tan)|(abs)|(floor)|(GCD)|(LCM)");
-            stack stack = new();
-            queue queue = new();
+            Stack stack = new();
+            Queue queue = new();
             string[] split = regex.Split(input);
 
             for (int i = 0; i < split.Length; i++)
@@ -30,30 +30,31 @@ namespace AlexMath
                     continue;
                 }
 
+                // If the input is pi, enqueue the estimated value
                 if (split[i] == "pi")
                 {
                     queue.Enqueue(pi.ToString());
                     continue;
                 }
 
-                // If the input is an opening bracket of some kind, send it stright to the stack
+                // If the input is an opening bracket of some kind, push it onto stack.
                 if (split[i].Contains('(') || split[i].Contains('{') || split[i].Contains('['))
                 {
                     stack.Push(split[i]);
                     continue;
                 }
 
-                //If the input is a function, throw it onto the stack
+                //If the input is a function, push it onto the stack.
                 if (function.IsMatch(split[i]))
                 {
                     stack.Push((split[i]));
                     continue;
                 }
 
-                // If there is a closing bracket, push all operators before the next opening bracket to the queue and remove both brackets.
+                // If there is a closing bracket, enqueue all operators before the next opening bracket and remove both brackets.
                 if (split[i] == ")" || split[i] == "}" || split[i] == "]")
                 {
-                    for (int j = 0; !(stack.Get(stack.length).Contains("(") || stack.Get(stack.length).Contains("{") || stack.Get(stack.length).Contains("[")); j++)
+                    for (int j = 0; !(stack.Get(stack.length).Contains('(') || stack.Get(stack.length).Contains('{') || stack.Get(stack.length).Contains('[')); j++)
                     {
                         string temp = stack.Pop();
                         queue.Enqueue(temp);
@@ -62,8 +63,8 @@ namespace AlexMath
                     continue;
                 }
 
-                // If the previous operator in the stack contains a bracket, push the current operator to the stack
-                if (stack.Get(stack.length).Contains("(") || stack.Get(stack.length).Contains("{") || stack.Get(stack.length).Contains("["))
+                // If the previous operator in the stack contains a bracket, push the current operator
+                if (stack.Get(stack.length).Contains('(') || stack.Get(stack.length).Contains('{') || stack.Get(stack.length).Contains('['))
                 {
                     stack.Push(split[i]);
                     continue;
@@ -79,7 +80,7 @@ namespace AlexMath
                     continue;
                 }
 
-                // My lazy way of saying: if this is a recognised operator, push it to the stack
+                // If this operator has a precendence, it is a recognised operator and is pushed to the stack
                 if (Precedence(split[i]) != -1)
                 {
                     stack.Push(split[i]);
@@ -91,6 +92,8 @@ namespace AlexMath
                 string[] error = { "NaN" };
                 return error;
             }
+
+            // Put the rest of the stack into the stack and return 
             for (int i = stack.length; i >= 0; i--)
             {
                 queue.Enqueue(stack.Pop());
@@ -98,89 +101,62 @@ namespace AlexMath
             return queue.Flush(stack.length);
         }
 
+        // Returns the mathematical precendence of an operator following BEDMAS
         public static int Precedence(string input)
         {
-            switch(input)
+            return input switch
             {
-                case ("^"):
-                    return 6;
-                case ("*"):
-                    return 5;
-                case ("x"):
-                    return 5;
-                case ("/"):
-                    return 5;
-                case ("-"):
-                    return 4;
-                case ("+"):
-                    return 4;
-                default:
-                    return -1;
-            }
+                "!" => 7,
+                "^" => 6,
+                "*" => 5,
+                "x" => 5,
+                "/" => 5,
+                "-" => 4,
+                "+" => 4,
+                _ => -1,
+            };
         }
+
+        // Returns true if an operator goes to the left of a number
         public static bool Left(string input)
         {
-            switch (input)
+            return input switch
             {
-                case ("^"):
-                    return false;
-                case ("*"):
-                    return true;
-                case ("x"):
-                    return true;
-                case ("/"):
-                    return true;
-                case ("-"):
-                    return true;
-                case ("+"):
-                    return true;
-                case ("!"):
-                    return false;
-                default:
-                    return false;
-            }
+                "^" => false,
+                "*" => true,
+                "x" => true,
+                "/" => true,
+                "-" => true,
+                "+" => true,
+                "!" => true,
+                _ => false,
+            };
         }
     }
 
-    public class stack
+    public class Stack
     {
         string[] data = new string[32];
         public int length = 0;
 
-        // Adds a value to the end of the stack
         public void Push(string input)
         {
-            try
-            {
-                data[length] = input;
-                length++;
-                return;
-            } catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-                return;
-            }
+            data[length] = input;
+            length++;
+            return;
+
         }
 
-        // Returns the last variable in the stack and removes it
         public string Pop()
         {
             if (length == 0)
             {
                 return "";
             }
-            try
-            {
-                string temp = data[length-1];
-                data[length-1] = "";
-                length--;
-                return temp;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-                return "";
-            }
+            string temp = data[length-1];
+            data[length-1] = "";
+            length--;
+            return temp;
         }
 
         public string Get(int index)
@@ -197,25 +173,17 @@ namespace AlexMath
         }
     }
 
-    public class queue
+    public class Queue
     {
         string[] data = new string[32];
         int beginning = 0;
         int length = 0;
 
-        // Adds a value to the end of the queue
         public void Enqueue (string input)
         {
-            try
-            {
-                data[length] = input;
-                length++;
-                return;
-            } catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-                return;
-            }
+            data[length] = input;
+            length++;
+            return;
         }
 
         public string[] Flush(int stackSize)

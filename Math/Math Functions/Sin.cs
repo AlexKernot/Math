@@ -17,6 +17,7 @@
 
             for (int i = 0; i < pow; i++)
             {
+                Console.WriteLine(Factorial.factorial(2* i+1));
                 num = (Pow.pow(-1, i) * Pow.pow(n, 2 * i + 1)) / (Factorial.factorial(2 * i + 1));
                 sinx += num;
             }
