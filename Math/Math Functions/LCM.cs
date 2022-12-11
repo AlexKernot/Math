@@ -6,25 +6,25 @@ using System.Threading.Tasks;
 
 namespace AlexMath
 {
-    public class LCM
+    internal partial class Functions
     {
-        public static decimal lcm(int a, int b)
+        public static decimal LCM(int a, int b)
         {
             if (a == 0)
             {
-                return Floor.floor(Absolute.abs(b));
+                return Functions.Floor(Functions.Absolute(b));
             }
 
             if (b == 0)
             {
-                return Floor.floor(Absolute.abs(a));
+                return Functions.Floor(Functions.Absolute(a));
             }
 
             if (a == 0 && b == 0)
             {
                 return 0;
             }
-           return Floor.floor((Absolute.abs(a * b) / GCD.gcd(a, b)));
+           return Functions.Floor((Functions.Absolute(a * b) / Functions.GCD(a, b)));
         }
     }
 }

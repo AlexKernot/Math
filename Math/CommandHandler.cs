@@ -4,11 +4,6 @@ namespace AlexMath
 {
     internal class CommandHandler
     {
-        const double pi = 3.141592653589793;
-
-        // Searches for word + space OR ( + number OR pi
-        static Regex rx = new(@"\w+(\s|\()([-]?\d+\.?\d*|pi)", RegexOptions.IgnoreCase);
-
         public static string Handler(string equation)
         {
             if (String.IsNullOrWhiteSpace(equation))

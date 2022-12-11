@@ -1,8 +1,8 @@
 ﻿namespace AlexMath
 {
-    internal class Absolute
+    internal partial class Functions
     {
-        public static decimal abs(decimal n)
+        public static decimal Absolute(decimal n)
         {
             if (n < 0)
                 n *= -1;

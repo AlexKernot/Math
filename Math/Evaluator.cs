@@ -52,12 +52,8 @@ namespace AlexMath
         // Function for calculating with style number | operator | number
         static string Simple(string[] compute)
         {
-            decimal a, b;
-
-            int temp, inta, intb;
-
             // Checks if the first and third inputs are numbers
-            if (decimal.TryParse(compute[0], out a) && decimal.TryParse(compute[2], out b)) {
+            if (decimal.TryParse(compute[0], out decimal a) && decimal.TryParse(compute[2], out decimal b)) {
                 switch (compute[1])
                 {
                     case "+":
@@ -73,15 +69,15 @@ namespace AlexMath
                         return (a / b).ToString();
 
                     case "%":
-                        return (AlexMath.Mod.mod(a, b)).ToString();
+                        return (Functions.Modulo(a, b)).ToString();
 
                     case "mod":
-                        return (AlexMath.Mod.mod(a, b)).ToString();
+                        return (Functions.Modulo(a, b)).ToString();
 
                     case "GCD":
-                        if (int.TryParse(a.ToString(), out inta) && int.TryParse(b.ToString(), out intb))
+                        if (int.TryParse(a.ToString(), out int inta) && int.TryParse(b.ToString(), out int intb))
                         {
-                            return (GCD.gcd(inta, intb).ToString());
+                            return (Functions.GCD(inta, intb).ToString());
                         }
                         Console.WriteLine("GCD operation can only be between two integers.");
                         return "NaN";
@@ -89,14 +85,14 @@ namespace AlexMath
                     case "LCM":
                         if (int.TryParse(a.ToString(), out inta) && int.TryParse(b.ToString(), out intb))
                         {
-                            return (LCM.lcm(inta, intb).ToString());
+                            return (Functions.LCM(inta, intb).ToString());
                         }
                         Console.WriteLine("LCM operation can only be between two integers.");
                         return "NaN";
 
                     case "^":
-                        if (b > 0 && int.TryParse(compute[2], out temp)) {
-                            return AlexMath.Pow.pow(a, temp).ToString();
+                        if (b > 0 && int.TryParse(compute[2], out int temp)) {
+                            return Functions.Exponents(a, temp).ToString();
                         }
                         Console.WriteLine("A power must be raised to a positive integer.");
                         return "NaN";
@@ -113,25 +109,24 @@ namespace AlexMath
         // function for calculating operator | number or number | operator
         static string Funct(string[] compute)
         {
-            decimal num;
-            if (decimal.TryParse(compute[1], out num))
+            if (decimal.TryParse(compute[1], out decimal num))
             {
                 switch (compute[0])
                 {
                     case "floor":
-                        return (AlexMath.Floor.floor(num)).ToString();
+                        return (Functions.Floor(num)).ToString();
                     case "abs":
-                        return (AlexMath.Absolute.abs(num)).ToString();   
+                        return (Functions.Absolute(num)).ToString();   
                     case "sin":
-                        return (AlexMath.Sin.sin(num)).ToString();
+                        return (Functions.Sin(num)).ToString();
                     case "cos":
-                        return (AlexMath.Cos.cos(num)).ToString();
+                        return (Functions.Cos(num)).ToString();
                     case "tan":
 
                     case "!":
                         if (int.TryParse(compute[1], out int temp))
                         {
-                            return (AlexMath.Factorial.factorial(temp)).ToString();
+                            return (Functions.Factorial(temp)).ToString();
                         }
                         Console.WriteLine("A factorial must a positive integer");
                         return "NaN";

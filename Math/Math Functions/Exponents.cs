@@ -1,9 +1,9 @@
 ﻿namespace AlexMath
 {
-    internal class Pow
+    internal partial class Functions
     {
         // TODO: implement the ability to do fraction/roots with powers
-        public static decimal pow(decimal a, int n)
+        public static decimal Exponents(decimal a, int n)
         {
             if (n == 0)
             {

@@ -2,9 +2,9 @@
 
 namespace AlexMath
 {
-    internal class Alex
+    public class Math
     {
-        static void Main(string[] args)
+        static void Main()
         {
             Stopwatch stopWatch = new();
             while (true)
@@ -22,5 +22,10 @@ namespace AlexMath
                 stopWatch.Reset();
             }
         }
+    }
+
+    internal partial class Functions
+    {
+        const decimal pi = 3.141592653589793M;
     }
 }

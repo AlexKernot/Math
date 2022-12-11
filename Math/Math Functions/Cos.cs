@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace AlexMath
 {
-    internal class Cos
+    internal partial class Functions
     {
-        const decimal pi = 3.141592653589793M;
-        public static decimal cos(decimal input)
+        public static decimal Cos(decimal input)
         {
             input += pi / 2;
 
-            return Sin.sin(input);
+            return Functions.Sin(input);
 
         }
     }

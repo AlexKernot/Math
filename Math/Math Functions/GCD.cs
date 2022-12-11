@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace AlexMath
 {
-    public class GCD
+    internal partial class Functions
     {
-        public static int gcd(int a, int b)
+        public static int GCD(int a, int b)
         {
             int tempA = a;
             int tempB = b;
-            int temp = 0;
+            int temp;
 
             while (true)
             {
@@ -27,7 +27,7 @@ namespace AlexMath
 
                 temp = tempA;
                 tempA = tempB;
-                tempB = (int)Mod.mod(temp, tempB);
+                tempB = (int)Functions.Modulo(temp, tempB);
             }
         }
     }

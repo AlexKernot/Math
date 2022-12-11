@@ -1,8 +1,8 @@
 ﻿namespace AlexMath
 {
-    internal class Floor
+    internal partial class Functions
     {
-        public static decimal floor(decimal n)
+        public static decimal Floor(decimal n)
         {
             return Decimal.Truncate(n);
         }

@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace AlexMath
 {
-    internal class Tan
+    internal partial class Functions
     {
-        public static decimal tan(decimal input)
+        public static decimal Tan(decimal input)
         {
-            decimal sin = Sin.sin(input);
-            decimal cos = Cos.cos(input);
+            decimal sin = Functions.Sin(input);
+            decimal cos = Functions.Cos(input);
 
             return sin / cos;
         }

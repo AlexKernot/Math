@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace AlexMath
 {
-    internal class Factorial
+    internal partial class Functions
     {
-        public static ulong factorial(int n)
+        public static ulong Factorial(int n)
         {
             uint start = (uint)n;
 

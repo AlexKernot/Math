@@ -1,13 +1,13 @@
 ﻿namespace AlexMath
 {
     // Euclidian modulo: r = a - |b| floor(a/|b|)
-    internal class Mod
+    internal partial class Functions
     {
-        public static decimal mod(decimal a, decimal b)
+        public static decimal Modulo(decimal a, decimal b)
         {
-            b = Absolute.abs(b);
+            b = Functions.Absolute(b);
 
-            decimal r = a - b * Floor.floor(a / b);
+            decimal r = a - b * Functions.Floor(a / b);
             return r;
         }
     }
