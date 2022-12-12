@@ -25,6 +25,6 @@ public class Math
 
 internal partial class Functions
 {
-    const decimal pi = 3.141592653589793M;
+    public const decimal pi = 3.141592653589793M;
 }
 

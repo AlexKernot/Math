@@ -14,35 +14,38 @@ internal class Evaluator
 
         for (int i = 0; i < postfix.Length; i++)
         {
-            if (String.IsNullOrWhiteSpace(postfix[i]) || postfix[i] == ",")
+
+            string currentValue = postfix[i];
+
+            if (String.IsNullOrWhiteSpace(currentValue) || currentValue == ",")
             {
                 continue;
             }
-            if (postfix[i] == "NaN")
+            if (currentValue == "NaN")
             {
                 return "NaN";
             }
-            if(decimal.TryParse(postfix[i], out _))
+            if(decimal.TryParse(currentValue, out _))
             {
-                eval.Push(postfix[i]);
+                eval.Push(currentValue);
                 continue;
             }
-            if (function.IsMatch(postfix[i]))
+            if (function.IsMatch(currentValue))
             {
-                compute[0] = postfix[i];
+                compute[0] = currentValue;
                 compute[1] = eval.Pop();
                 eval.Push(Funct(compute));
                 continue;
             }
             try
             {
-                compute[1] = postfix[i];
+                compute[1] = currentValue;
                 compute[2] = eval.Pop();
                 compute[0] = eval.Pop();
                 eval.Push(Simple(compute));
             } catch (Exception)
             {
-                Console.WriteLine("There was an error with your inputs at: " + postfix[i]);
+                Console.WriteLine("There was an error with your inputs at: " + currentValue);
             }
         }
         return eval.Pop();

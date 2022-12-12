@@ -3,7 +3,6 @@
 namespace AlexMath;
 internal class ShuntingYardAlg
 {
-    const decimal pi = 3.141592653589793M;
     // Standard Shunting Yard Algorithm for processing a string for calculations. Example: https://www.youtube.com/watch?v=Wz85Hiwi5MY
     public static string[] Algorithm(string input)
     {
@@ -14,8 +13,13 @@ internal class ShuntingYardAlg
         Queue queue = new();
         string[] split = regex.Split(input);
 
+        int stackLength = stack.GetLength();
+        string stackLastValue = stack.Get(stackLength);
+
         for (int i = 0; i < split.Length; i++)
         {
+            string currentValue = split[i];
+
             // If the input is just a whitespace, continue
             if (String.IsNullOrWhiteSpace(split[i])|| split[i] == ",")
             {
@@ -23,37 +27,37 @@ internal class ShuntingYardAlg
             }
 
             // Checks if the input is a number, if it is, push it stright to the queue
-            if (decimal.TryParse(split[i], out _))
+            if (decimal.TryParse(currentValue, out _))
             {
-                queue.Enqueue(split[i]);
+                queue.Enqueue(currentValue);
                 continue;
             }
 
             // If the input is pi, enqueue the estimated value
-            if (split[i] == "pi")
+            if (currentValue == "pi")
             {
-                queue.Enqueue(pi.ToString());
+                queue.Enqueue(Functions.pi.ToString());
                 continue;
             }
 
             // If the input is an opening bracket of some kind, push it onto stack.
-            if (split[i].Contains('(') || split[i].Contains('{') || split[i].Contains('['))
+            if (currentValue.Contains('(') || currentValue.Contains('{') || currentValue.Contains('['))
             {
-                stack.Push(split[i]);
+                stack.Push(currentValue);
                 continue;
             }
 
             //If the input is a function, push it onto the stack.
-            if (function.IsMatch(split[i]))
+            if (function.IsMatch(currentValue))
             {
-                stack.Push((split[i]));
+                stack.Push(currentValue);
                 continue;
             }
 
             // If there is a closing bracket, enqueue all operators before the next opening bracket and remove both brackets.
-            if (split[i] == ")" || split[i] == "}" || split[i] == "]")
+            if (currentValue == ")" || currentValue == "}" || currentValue == "]")
             {
-                for (int j = 0; !(stack.Get(stack.length).Contains('(') || stack.Get(stack.length).Contains('{') || stack.Get(stack.length).Contains('[')); j++)
+                for (int j = 0; !(stackLastValue.Contains('(') || stackLastValue.Contains('{') || stackLastValue.Contains('[')); j++)
                 {
                     string temp = stack.Pop();
                     queue.Enqueue(temp);
@@ -63,41 +67,41 @@ internal class ShuntingYardAlg
             }
 
             // If the previous operator in the stack contains a bracket, push the current operator
-            if (stack.Get(stack.length).Contains('(') || stack.Get(stack.length).Contains('{') || stack.Get(stack.length).Contains('['))
+            if (stackLastValue.Contains('(') || stackLastValue.Contains('{') || stackLastValue.Contains('['))
             {
-                stack.Push(split[i]);
+                stack.Push(currentValue);
                 continue;
             }
 
             // If the operator has a lower precendece then the operator in the stack, pop previous operation and enqueue it before pushing current operator
-            if (Precedence(split[i]) <= Precedence(stack.Get(stack.length)) && Left(split[i]))
+            if (Precedence(currentValue) <= Precedence(stackLastValue) && Left(currentValue))
             {
-                for (int j =0; Precedence(split[i]) <= Precedence(stack.Get(stack.length)); j++) {
+                for (int j =0; Precedence(currentValue) <= Precedence(stackLastValue); j++) {
                     queue.Enqueue(stack.Pop());
                 }
-                stack.Push(split[i]);
+                stack.Push(currentValue);
                 continue;
             }
 
             // If this operator has a precendence, it is a recognised operator and is pushed to the stack
-            if (Precedence(split[i]) != -1)
+            if (Precedence(currentValue) != -1)
             {
-                stack.Push(split[i]);
+                stack.Push(currentValue);
                 continue;
             }
 
             // Else, throw error
-            Console.WriteLine("Unknown input: '" + split[i] + "'");
+            Console.WriteLine("Unknown input: '" + currentValue + "'");
             string[] error = { "NaN" };
             return error;
         }
 
         // Put the rest of the stack into the stack and return 
-        for (int i = stack.length; i >= 0; i--)
+        for (int i = stackLength; i >= 0; i--)
         {
             queue.Enqueue(stack.Pop());
         }
-        return queue.Flush(stack.length);
+        return queue.Flush(stackLength);
     }
 
     // Returns the mathematical precendence of an operator following BEDMAS
@@ -130,70 +134,5 @@ internal class ShuntingYardAlg
             "!" => true,
             _ => false,
         };
-    }
-}
-
-public class Stack
-{
-    string[] data = new string[32];
-    public int length = 0;
-
-    public void Push(string input)
-    {
-        data[length] = input;
-        length++;
-        return;
-
-    }
-
-    public string Pop()
-    {
-        if (length == 0)
-        {
-            return "";
-        }
-        string temp = data[length-1];
-        data[length-1] = "";
-        length--;
-        return temp;
-    }
-
-    public string Get(int index)
-    {
-        if (length == 0)
-        {
-            return "";
-        }
-        if (data[index - 1] == null)
-        {
-            return "";
-        }
-        return data[index - 1];
-    }
-}
-
-public class Queue
-{
-    string[] data = new string[32];
-    int beginning = 0;
-    int length = 0;
-
-    public void Enqueue (string input)
-    {
-        data[length] = input;
-        length++;
-        return;
-    }
-
-    public string[] Flush(int stackSize)
-    {
-        string[] final = new string[stackSize + length];
-        int j = 0;
-        for(int i = beginning; i < length; i++)
-        {
-            final[j] = data[i];
-            j++;
-        }
-        return final;
     }
 }
