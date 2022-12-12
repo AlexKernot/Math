@@ -93,10 +93,10 @@ internal class Evaluator
                     return "NaN";
 
                 case "^":
-                    if (b > 0 && int.TryParse(compute[2], out int temp)) {
-                        return Functions.Exponents(a, temp).ToString();
+                    if (int.TryParse(compute[2], out int number)) {
+                        return Functions.Exponents(a, number).ToString();
                     }
-                    Console.WriteLine("A power must be raised to a positive integer.");
+                    Console.WriteLine("A power must be raised to a integer.");
                     return "NaN";
 
                 default:

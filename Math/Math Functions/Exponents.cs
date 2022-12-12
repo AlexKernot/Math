@@ -9,11 +9,15 @@ internal partial class Functions
         }
         decimal RunningTotal = a;
 
-            for (int i = 1; i < n; i++)
+        for (int i = 1; i < n; i++)
         {
             RunningTotal *= a;
         }
 
+        if (n < 0)
+        {
+            RunningTotal = 1 / RunningTotal;
+        }
             return RunningTotal;
     }
 }
