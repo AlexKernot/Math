@@ -1,6 +1,7 @@
 #include <cassert>
 #include <iostream>
-#include "LinkedList.h"
+
+#include "../LinkedList.h"
 
 using std::cout;
 
