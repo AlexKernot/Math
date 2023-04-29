@@ -67,6 +67,13 @@ bool LinkedList::AddNode(int index, void *content)
 bool LinkedList::DeleteNode(int index)
 {
     t_node *node = head_node;
+    if (index == 0)
+    {
+        t_node *nextNode = node->next;
+        delete head_node;
+        head_node = nextNode;
+        return true;
+    }
 
     for (int i = 0; i < index - 1; i--)
     {
