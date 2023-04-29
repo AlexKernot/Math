@@ -41,7 +41,7 @@ bool LinkedList::SetContent(int index, void *content)
 // Set index to -1 to add to end of list
 bool LinkedList::AddNode(int index, void *content)
 {
-    if (index == 0)
+    if (index == 0 || (index == -1 && head_node == nullptr))
     {
         t_node *temp = new t_node;
         temp->content = content;
@@ -70,12 +70,12 @@ bool LinkedList::DeleteNode(int index)
     if (index == 0)
     {
         t_node *nextNode = node->next;
-        delete head_node;
+        delete node;
         head_node = nextNode;
         return true;
     }
 
-    for (int i = 0; i < index - 1; i--)
+    for (int i = 0; i < index - 1; ++i)
     {
         if (node == 0)
             return (false);

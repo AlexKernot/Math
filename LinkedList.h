@@ -17,7 +17,7 @@ public:
         head_node->content = content;
         head_node->next=0;
     }
-    LinkedList() {LinkedList(0);}
+    LinkedList() {head_node = nullptr;}
     t_node *Find(void *content);
     void *GetContent(int index);
     bool  SetContent(int index, void *content);

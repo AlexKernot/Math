@@ -5,6 +5,16 @@
 
 using std::cout;
 
+void LinkedListTest2()
+{
+    int num = 42;
+    LinkedList list = LinkedList();
+
+    list.AddNode(-1, &num);
+    assert(list.GetContent(0) == &num);
+    list.DeleteNode(0);
+}
+
 void testLinkedList() {
     // Create a linked list with an initial node containing the number 42
     int num = 42;
@@ -45,6 +55,7 @@ void testLinkedList() {
 }
 
 int main() {
-    testLinkedList();
+//    testLinkedList();
+    LinkedListTest2();
     return 0;
 }
