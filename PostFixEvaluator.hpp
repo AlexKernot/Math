@@ -3,10 +3,10 @@
 
 # include "Token.hpp"
 
-# include <stack>
+# include <queue>
 
 class PostFixEvaluator {
-	static Token& evaluate(std::stack<Token&> input);
+	static Token& evaluate(std::queue<Token&> input);
 };
 
 #endif // POSTFIXEVALUATOR_HPP

@@ -7,7 +7,7 @@
 # include <queue>
 
 class PostFixProcessor {
-	static std::stack<Token &> process(std::queue<Token &>& input);
+	static std::queue<Token &> process(std::queue<Token &>& input);
 };
 
 #endif // POSTFIXPROCESSOR_H

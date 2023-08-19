@@ -9,8 +9,8 @@ class Bracket : public Token {
 private:
 	bracketDirection direction;
 public:
-	Bracket(bracketDirection _direction) : Token(bracket), direction(_direction) {}
-	bracketDirection getDirection(void) {return direction;}
+	Bracket(bracketDirection _direction);
+	bracketDirection getDirection(void);
 };
 
 #endif // BRACKET_HPP
