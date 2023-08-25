@@ -6,13 +6,13 @@
 
 #include <memory>
 
-void PostFixProcessor::pushOperators(Token& current, std::queue<Token&>& returnQueue,
-                              		 std::stack<Token&> &tempStack) {
-	while (tempStack.top().getType() == operation)
+void PostFixProcessor::pushOperators(Token* current, std::queue<Token*>& returnQueue,
+                              		 std::stack<Token*> &tempStack) {
+	while (tempStack.top()->getType() == operation)
 	{
-		Operation& thisOperation = static_cast<Operation&>(current);
-		Operation& nextOperation = static_cast<Operation&>(tempStack.top());
-		if (thisOperation.getPrecedence() > nextOperation.getPrecedence())
+		Operation* thisOperation = static_cast<Operation*>(current);
+		Operation* nextOperation = static_cast<Operation*>(tempStack.top());
+		if (thisOperation->getPrecedence() > nextOperation->getPrecedence())
 			return;
 		returnQueue.push(tempStack.top());
 		tempStack.pop();
@@ -20,11 +20,11 @@ void PostFixProcessor::pushOperators(Token& current, std::queue<Token&>& returnQ
 	returnQueue.push(current);
 }
 
-void PostFixProcessor::pushUntilBrackets(std::queue<Token&>& returnQueue,
-                        				std::stack<Token&>& tempStack) {
+void PostFixProcessor::pushUntilBrackets(std::queue<Token*>& returnQueue,
+                        				std::stack<Token*>& tempStack) {
 	while (tempStack.size() != 0) {
-		if (tempStack.top().getType() == bracket
-			&& static_cast<Bracket&>(tempStack.top()).getDirection() == right)
+		if (tempStack.top()->getType() == bracket
+			&& static_cast<Bracket*>(tempStack.top())->getDirection() == right)
 			return;
 		returnQueue.push(tempStack.top());
 		tempStack.pop();
@@ -33,15 +33,15 @@ void PostFixProcessor::pushUntilBrackets(std::queue<Token&>& returnQueue,
 
 // Uses a shunting yard algorithm to transform a queue of Tokens in
 // infix notation into postfix or reverse Polish notation.
-std::unique_ptr<std::queue<Token &>> PostFixProcessor::process
-		(std::queue<Token&>& input) {
-	std::queue<Token&> *returnQueue = new std::queue<Token&>;
-	std::stack<Token&> tempStack;
+std::unique_ptr<std::queue<Token *>*> PostFixProcessor::process
+		(std::queue<Token*>& input) {
+	std::queue<Token*> *returnQueue = new std::queue<Token*>();
+	std::stack<Token*> tempStack;
 
 	while (input.size() > 0) {
 		// Get the token at the front of the queue
-		Token& current = input.front();
-		tokenType type = current.getType();
+		Token* current = input.front();
+		tokenType type = current->getType();
 		// Logic for each type of token
 		switch (type) {
 			// If the token is a number, push it to the queue.
@@ -52,7 +52,7 @@ std::unique_ptr<std::queue<Token &>> PostFixProcessor::process
 			// If the token is a right bracket, while a left bracket is not at
 			// the top of the tempStack, push from the stack onto the queue.
 			case bracket:
-				if (static_cast<Bracket&>(current).getDirection() == left) {
+				if (static_cast<Bracket*>(current)->getDirection() == left) {
 					tempStack.push(current);
 					break;
 				}
@@ -74,5 +74,5 @@ std::unique_ptr<std::queue<Token &>> PostFixProcessor::process
 		returnQueue->push(tempStack.top());
 		tempStack.pop();
 	}
-	return std::make_unique<std::queue<Token&>>(returnQueue);
+	return std::make_unique<std::queue<Token*>*>(returnQueue);
 }
