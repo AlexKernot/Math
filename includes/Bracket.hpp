@@ -1,16 +1,17 @@
 #ifndef BRACKET_HPP
-# define BRACKET_HPP
+#define BRACKET_HPP
 
-# include "Token.hpp"
+#include "Token.hpp"
 
-enum bracketDirection {right, left};
+enum bracketDirection { right, left };
 
 class Bracket : public Token {
 private:
-    bracketDirection direction;
+  bracketDirection direction;
+
 public:
-    Bracket(bracketDirection _direction);
-    bracketDirection getDirection(void);
+  Bracket(bracketDirection _direction);
+  bracketDirection getDirection(void);
 };
 
 #endif // BRACKET_HPP
