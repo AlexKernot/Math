@@ -8,11 +8,11 @@ using std::cout;
 using std::endl;
 
 std::string Console::sendInput(void) {
-	string input;
-	cin >> input;
-	return (input);
+    string input;
+    cin >> input;
+    return (input);
 }
 
 void Console::displayOutput(std::string output) {
-	cout << output << endl;
+    cout << output << endl;
 }

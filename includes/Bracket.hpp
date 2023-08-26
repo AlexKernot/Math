@@ -7,10 +7,10 @@ enum bracketDirection {right, left};
 
 class Bracket : public Token {
 private:
-	bracketDirection direction;
+    bracketDirection direction;
 public:
-	Bracket(bracketDirection _direction);
-	bracketDirection getDirection(void);
+    Bracket(bracketDirection _direction);
+    bracketDirection getDirection(void);
 };
 
 #endif // BRACKET_HPP

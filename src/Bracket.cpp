@@ -5,5 +5,5 @@
 Bracket::Bracket(bracketDirection _direction): Token(bracket), direction(_direction) {}
 
 bracketDirection Bracket::getDirection() {
-	return direction;
+    return direction;
 }

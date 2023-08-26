@@ -6,7 +6,7 @@
 # include <queue>
 
 class PostFixEvaluator {
-	static Token& evaluate(std::queue<Token&> input);
+    static Token& evaluate(std::queue<Token&> input);
 };
 
 #endif // POSTFIXEVALUATOR_HPP

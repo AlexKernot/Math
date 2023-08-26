@@ -5,8 +5,8 @@
 
 class Display {
 public:
-	virtual std::string sendInput(void) = 0;
-	virtual void displayOutput(std::string) = 0;
+    virtual std::string sendInput(void) = 0;
+    virtual void displayOutput(std::string) = 0;
 };
 
 #endif // DISPLAY_HPP

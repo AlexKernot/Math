@@ -8,7 +8,7 @@
 
 class Tokenizer {
 public:
-	std::queue<Token *>& process(std::string);
+    std::queue<Token *>& process(std::string);
 };
 
 #endif // TOKENIZER_HPP
