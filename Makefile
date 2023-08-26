@@ -1,15 +1,29 @@
 NAME=math
 
-CC=g++
-CFLAGS=-Wall -Wextra -Wpedantic -Wno-shadow -g
+CPP=g++
+CPPFLAGS=-Wall -Wextra -Wpedantic -Wno-shadow -I./includes -g
+LDFLAGS=-fsanitize=address -fsanitize=undefined
 
-FILES=Number.cpp Token.cpp Bracket.cpp Console.cpp PostFixProcessor.cpp 
-BIN=$(FILES:%.cpp=%.o)
+VPATH=./src
+OUTPUTDIRECTORY=./bin
 
-%.o: %.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+FILES=Number.cpp Token.cpp Bracket.cpp Console.cpp PostFixProcessor.cpp main.cpp
+BIN=$(FILES:%.cpp=$(OUTPUTDIRECTORY)/%.o)
+
+$(OUTPUTDIRECTORY)/%.o: %.cpp
+	$(CPP) $(CPPFLAGS) -c $< -o $@
 
 $(NAME): $(BIN)
-	$(CC) -fsanitize=address $(BIN) -o $(NAME)
+	$(CPP) $(LDFLAGS) $(BIN) -o $(NAME)
+
+.PHONY: all clean fclean re
 
 all: $(NAME)
+
+fclean: clean
+	rm -f $(NAME)
+
+clean:
+	rm -f $(BIN)
+
+re: fclean all
