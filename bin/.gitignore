@@ -1,0 +1,6 @@
+# This folder is purely for output binary files. There should be no files
+# present in this folder for git.
+
+# ignore all files except this .gitignore
+*
+!.gitignore
