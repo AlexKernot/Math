@@ -1,0 +1,4 @@
+# This is a folder for the binary output folders. There should never be files
+# here that are added to the git repo.
+
+!.gitignore
